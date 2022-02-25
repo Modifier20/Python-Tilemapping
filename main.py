@@ -10,7 +10,7 @@ import maps
 from sprites import *
 from config import *
 
-pygame.display.set_caption("Tile Mapping Experiment")
+pygame.display.set_caption("")
 
 class Game:
     def __init__(self):
