@@ -3,41 +3,14 @@
 #
 
 import pygame, sys
+from sounds import *
+from player import *
+from map_build import *
+import maps
+from sprites import *
+from config import *
 
-pygame.display.set_caption("tilemapping")
-
-WIN_WIDTH = 800
-WIN_HEIGHT = 600
-TILESIZE = 32
-FPS = 60
-
-class Spritesheet:
-    def __init__(self, file):
-        self.sheet = pygame.image.load(file).convert()
-
-    def get_sprite(self, x, y, width, height):
-        sprite = pygame.Surface([width, height])
-        sprite.blit(self.sheet, (0, 0), (x, y, width, height))
-        return sprite
-
-class Ground(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
-        self.game = game
-        self._layer = 1
-        self.groups = self.game.all_sprites
-        pygame.sprite.Sprite.__init__(self, self.groups)
-
-        self.x = x * TILESIZE
-        self.y = y * TILESIZE
-        self.width, self.height = TILESIZE, TILESIZE
-        self.image = self.game.terrainsheet.get_sprite(0, 96, self.width, self.height)
-        self.rect = self.image.get_rect()
-        self.rect.x, self.rect.y = self.x, self.y
-
-def build_map(self, tilemap):
-    for i, row in enumerate(tilemap):
-        for j, column in enumerate(row):
-            Ground(self, j, i)
+pygame.display.set_caption("Tile Mapping Experiment")
 
 class Game:
     def __init__(self):
@@ -45,6 +18,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.terrainsheet = Spritesheet('terrain1.png')
+        self.character_spritesheet = Spritesheet('character.png')
 
     def createTilemap(self, tilemap):
         build_map(self, tilemap)
@@ -76,32 +50,10 @@ class Game:
             self.update()
             self.draw()
 
-TILEMAP = [
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-    '........................................',
-]
 
+TILEMAP = maps.world_1.stage_1
 game = Game()
 game.new(TILEMAP)
-
 while game.running:
     game.main()
 
