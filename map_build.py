@@ -6,5 +6,8 @@ def build_map(self, tilemap):
         for j, column in enumerate(row):
             Ground(self, j, i)
 
-            if column == 'p':
+            if column == 'P':
                 self.Player = Player(self, j, i)
+
+            if column == 'T':
+                Tree(self, j, i)

@@ -17,7 +17,7 @@ class Spritesheet:
 class Ground(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         self.game = game
-        self._layer = 1
+        self._layer = GROUND_LAYER
         self.groups = self.game.all_sprites
         pygame.sprite.Sprite.__init__(self, self.groups)
 
@@ -27,3 +27,18 @@ class Ground(pygame.sprite.Sprite):
         self.image = self.game.terrainsheet.get_sprite(0, 96, self.width, self.height)
         self.rect = self.image.get_rect()
         self.rect.x, self.rect.y = self.x, self.y
+
+class Tree(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = BLOCK_LAYER
+        self.groups = self.game.all_sprites, self.game.trees
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.x = x * TILESIZE
+        self.y = y * TILESIZE
+        self.width, self.height = TILESIZE, TILESIZE
+        self.image = self.game.terrainsheet.get_sprite(0, 0, self.width, self.height)
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = self.x, self.y
+        self.image.set_colorkey('white')
