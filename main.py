@@ -1,6 +1,6 @@
 #
-# Created following these tutorials: https://www.youtube.com/playlist?list=PLywhTYI3VhfJCkp_aQXFj_8-Ac496LmUm
-# You are at the beginning of Part 4
+# Created following these tutorials: https://youtu.be/0aGLalDl2RE?t=851
+# You are at the point in the link above.
 #
 
 import pygame, sys
