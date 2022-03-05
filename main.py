@@ -20,6 +20,7 @@ class Game:
         self.running = True
         self.terrainsheet = Spritesheet('terrain1.png')
         self.character_spritesheet = Spritesheet('character.png')
+        self.enemy_spritesheet = Spritesheet('enemy.png')
 
     def createTilemap(self, tilemap):
         build_map(self, tilemap)
@@ -28,6 +29,7 @@ class Game:
         self.playing = True
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.trees = pygame.sprite.LayeredUpdates()
+        self.enemies = pygame.sprite.LayeredUpdates()
         self.createTilemap(tilemap)
 
     def events(self):
