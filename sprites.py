@@ -33,6 +33,35 @@ class Enemy(pygame.sprite.Sprite):
         self.image = self.game.enemy_spritesheet.get_sprite(3, 2, self.width, self.height)
         self.image.set_colorkey('black')
 
+        self.rect = self.image.get_rect()
+        self.rect.x, self.rect.y = self.x, self.y
+
+        enemy_animation(self)
+
+    def update(self):
+        self.movement()
+        self.animate()
+        self.rect.x += self.x_change
+        self.rect.y += self.y_change
+
+        self.x_change, self.y_change = 0, 0
+
+    def movement(self):
+        if self.facing == "left":
+            self.x_change -= ENEMY_SPEED
+            self.movement_loop -= 1
+            if self.movement_loop <= -self.max_travel:
+                self.facing = 'right'
+
+        if self.facing == 'right':
+            self.x_change += ENEMY_SPEED
+            self.movement_loop += 1
+            if self.movement_loop >= self.max_travel:
+                self.facing = 'left'
+
+    def animate(self):
+        enemy_animation_animate(self)
+
 class Ground(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         self.game = game

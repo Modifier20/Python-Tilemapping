@@ -11,3 +11,6 @@ def build_map(self, tilemap):
 
             if column == 'T':
                 Tree(self, j, i)
+
+            if column == 'E':
+                Enemy(self, j, i)
