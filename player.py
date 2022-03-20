@@ -53,9 +53,42 @@ class Player(pygame.sprite.Sprite):
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
 
+        if keys[pygame.K_ESCAPE]:
+            print("Game Window Closing...")
+            exit()
+
+    def collide_enemy(self):
+        global LIVES
+        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        if hits:
+            if self.facing == 'right':
+                for sprite in self.game.all_sprites:
+                    sprite.rect.x += PLAYER_SPEED * KNOCK_DISTANCE
+                self.x_change -= PLAYER_SPEED * KNOCK_DISTANCE
+            elif self.facing == 'left':
+                for sprite in self.game.all_sprites:
+                    sprite.rect.x -= PLAYER_SPEED * KNOCK_DISTANCE
+                self.x_change += PLAYER_SPEED * KNOCK_DISTANCE
+            elif self.facing == 'up':
+                for sprite in self.game.all_sprites:
+                    sprite.rect.y -= PLAYER_SPEED * KNOCK_DISTANCE
+                self.y_change += PLAYER_SPEED * KNOCK_DISTANCE
+            elif self.facing == 'down':
+                for sprite in self.game.all_sprites:
+                    sprite.rect.y += PLAYER_SPEED * KNOCK_DISTANCE
+                self.y_change -= PLAYER_SPEED * KNOCK_DISTANCE
+
+            pygame.time.wait(25)
+            LIVES -= 1
+            print(LIVES)
+            if LIVES <= 0:
+                self.kill()
+                self.game.playing = False
+
     def update(self):
         self.movement()
         self.animate()
+        self.collide_enemy()
 
         self.rect.x += self.x_change
         self.collide_trees("x")
