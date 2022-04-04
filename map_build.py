@@ -7,7 +7,7 @@ def build_map(self, tilemap):
             Ground(self, j, i)
 
             if column == 'P':
-                self.Player = Player(self, j, i)
+                self.player = Player(self, j, i)
 
             if column == 'T':
                 Tree(self, j, i)
